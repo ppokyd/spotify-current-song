@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       { loggedIn === false && <a className="login" href="./api/v1/login">Login with Spotify</a> }
-      { item && <CurrentSong {...item} /> }
+      { loggedIn === true && item && <CurrentSong {...item} /> }
     </div>
   );
 }
