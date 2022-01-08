@@ -19,17 +19,17 @@ function App() {
     })
   };
 
-  // getCurrentSong();
-  useEffect(() => {
-    if (loggedIn) {
-      const interval = setInterval(() => getCurrentSong(), 3e3);
-      return () => clearInterval(interval);
-    }
-  }, [loggedIn]);
+  getCurrentSong();
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     const interval = setInterval(() => getCurrentSong(), 3e3);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [loggedIn]);
 
   return (
     <div className="App">
-      { loggedIn === false && <a className="login" href="./api/v1/login">Login</a> }
+      { loggedIn === false && <a className="login" href="./api/v1/login">Login with Spotify</a> }
       { item && <CurrentSong {...item} /> }
     </div>
   );
