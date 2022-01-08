@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import CurrentSong from './CurrentSong/CurrentSong';
+import Login from './Login/Login';
+import Help from './Help/Help';
 
 import './App.scss';
-import CurrentSong from './CurrentSong/CurrentSong';
 
 function App() {
   const [item, setData] = useState();
   const [loggedIn, setLoggedIn] = useState(true);
+  const isHelp = window.location.hash.includes('help');
 
   const getCurrentSong = () => {
     fetch('./api/v1/current-song')
@@ -17,6 +20,7 @@ function App() {
         setLoggedIn(false);
       }
     })
+    .catch(() => setLoggedIn(false))
   };
 
   useEffect(() => {
@@ -28,8 +32,13 @@ function App() {
 
   return (
     <div className="App">
-      { loggedIn === false && <a className="login" href="./api/v1/login">Login with Spotify</a> }
-      { loggedIn === true && item && <CurrentSong {...item} /> }
+      { isHelp === false && (
+        <>
+          { loggedIn === false && <Login /> }
+          { loggedIn === true && item && <CurrentSong {...item} /> }
+        </>
+      )}
+      { isHelp === true && <Help /> }
     </div>
   );
 }
