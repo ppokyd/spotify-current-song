@@ -19,13 +19,12 @@ function App() {
     })
   };
 
-  getCurrentSong();
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     const interval = setInterval(() => getCurrentSong(), 3e3);
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [loggedIn]);
+  useEffect(() => {
+    if (loggedIn) {
+      const interval = setInterval(() => getCurrentSong(), 3e3);
+      return () => clearInterval(interval);
+    }
+  }, [loggedIn]);
 
   return (
     <div className="App">
