@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+
+import './App.scss';
+import CurrentSong from './CurrentSong/CurrentSong';
 
 function App() {
+  const [item, setData] = useState();
+  const [loggedIn, setLoggedIn] = useState(true);
+
+  const getCurrentSong = () => {
+    fetch('./api/v1/current-song')
+    .then(res => res.json())
+    .then(res => {
+      if (res.item) {
+        setData(res.item)
+      } else if (res.status === 401) {
+        setLoggedIn(false);
+      }
+    })
+  };
+
+  // getCurrentSong();
+  useEffect(() => {
+    if (loggedIn) {
+      const interval = setInterval(() => getCurrentSong(), 3e3);
+      return () => clearInterval(interval);
+    }
+  }, [loggedIn]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { loggedIn === false && <a className="login" href="./api/v1/login">Login</a> }
+      { item && <CurrentSong {...item} /> }
     </div>
   );
 }

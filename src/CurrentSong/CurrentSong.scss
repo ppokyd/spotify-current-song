@@ -1,0 +1,36 @@
+.CurrentSong {
+  display: flex;
+  background: rgb(39, 39, 39);
+  background: linear-gradient(
+    90deg,
+    rgba(39, 39, 39, .7) 90%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  color: #fff;
+  padding: 5px;
+
+  .cover,
+  .song {
+    display: flex;
+  }
+
+  .song {
+    margin-left: 5px;
+    flex-direction: column;
+    justify-content: center;
+
+    .name,
+    .artist {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .name {
+      font-weight: bold;
+    }
+
+    .artist {
+      font-size: 14px;
+    }
+  }
+}
